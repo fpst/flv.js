@@ -2,6 +2,11 @@
 
 const del = require('del');
 const gulp = require('gulp');
+const eslint = require('gulp-eslint');
+const sourcemaps = require('gulp-sourcemaps');
+const browserify = require('browserify');
+const buffer = require('vinyl-buffer');
+const source = require('vinyl-source-stream');
 
 function doBundle(b) {
     return b.bundle()
