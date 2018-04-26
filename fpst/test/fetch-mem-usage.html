@@ -10,9 +10,26 @@
 
 <body>
     <p>Запущено: <span id="started"/></p>
+    <p>Получено байт: <span id="bytes"/></p>
+    <p>Последний блок: <span id="last"/></p>
+    <p><button onclick="stop()">Stop</button></p>
     <script>
       $('#started').text(new Date().toLocaleString());
       console.log(flvjs);
+      var bytes = 0;
+      var ioc = flvjs.createIOController('http://192.168.3.29:8081/rtsp/3198/2f6516e912600b18cdc1');
+      console.log(ioc);
+      ioc.onDataArrival = function(data, byteStart) {
+	  // console.log(data.byteLength);
+	  bytes += data.byteLength;
+	  $('#bytes').text('' + bytes + ' ' + (bytes / 1024 / 1024).toFixed(1) + 'M');
+	  $('#last').text(new Date().toLocaleString());
+      };
+      ioc.open();
+      function stop() {
+	  ioc.destroy();
+	  ioc = null;
+      }
     </script>
 </body>
 

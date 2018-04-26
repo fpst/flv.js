@@ -1,6 +1,9 @@
+import {createDefaultConfig} from '../../src/config.js';
 import IOController from '../../src/io/io-controller.js';
 let flvjs = {};
-flvjs.createIOController = function(dataSource, config, segmentIndex) {
-    return new IOController(dataSource, config, segmentIndex);
+flvjs.createIOController = function(url) {
+    let config = createDefaultConfig();
+    config.isLive = true;
+    return new IOController({ url: url }, config, 0);
 };
 export default flvjs;
